@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+	http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="default">
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/gestaoTarefas" /> <!-- BD Mane -->
+			<property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
+			<property name="javax.persistence.jdbc.password" value="postgres" /> <!-- DB Password -->
+			
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> <!-- DB Dialeto -->
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+
+			<property name="hibernate.show_sql" value="true" /> <!-- log sql no console -->
+			<property name="hibernate.format_sql" value="true" /> <!-- log sql no console -->
+		</properties>
+	</persistence-unit>
+
+</persistence>
