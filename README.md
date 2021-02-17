@@ -8,6 +8,7 @@ Recrutamento Dev Java ESIG - Aplicação Exemplo: Sistema de Gestão de Tarefas
 
 ## Requisitos
 * Eclipse IDE for Enterprise Java Developers
+* Apache Tomcat 7 configurado no Eclipse
 
 ## Como utilizar [obs1](#)
 * 
