@@ -20,11 +20,11 @@ public class TarefaBean {
 
 		if (this.listaDeTarefas == null) {
 			// conseguimos a EntityManager
-			EntityManager em = JPAUtil.getEntityManager();
-			Query q = em.createQuery("select a from Tarefa a", Tarefa.class);
+			EntityManager entityManager = JPAUtil.getEntityManager();
+			Query query = entityManager.createQuery("select a from Tarefa a", Tarefa.class);
 
-			this.listaDeTarefas = q.getResultList();
-			em.close();
+			this.listaDeTarefas = query.getResultList();
+			entityManager.close();
 		}
 		return listaDeTarefas;
 	}
@@ -37,23 +37,24 @@ public class TarefaBean {
 		System.out.println("Salvo o " + tarefa.getTitulo());
 
 		// conseguimos a EntityManager
-		EntityManager em = JPAUtil.getEntityManager();
-		em.getTransaction().begin();
-		em.persist(tarefa);
-		em.getTransaction().commit();
-		em.close();
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		
+		entityManager.getTransaction().begin();
+		entityManager.persist(tarefa);
+		entityManager.getTransaction().commit();
+		entityManager.close();
 	}
 
 	public void excluir(Tarefa tarefa) {
 		// conseguimos a EntityManager
-		EntityManager em = JPAUtil.getEntityManager();
-		EntityTransaction tx = em.getTransaction();
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
 		
-		tx.begin();
-		tarefa = em.merge(tarefa);
-		em.remove(tarefa);
-		tx.commit();
-		em.close();
+		transaction.begin();
+		tarefa = entityManager.merge(tarefa);
+		entityManager.remove(tarefa);
+		transaction.commit();
+		entityManager.close();
 	}
 
 }

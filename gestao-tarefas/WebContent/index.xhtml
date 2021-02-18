@@ -1,6 +1,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 	<title>Cadastrar Tarefa</title>
@@ -8,17 +9,10 @@
 
 <h:body>
 
-	<div align="center">
-		<h1>Sistema de Gestão de Tarefas</h1>
-		<hr />
-		<table>
-			<tr>
-				<td><a href="index.xhtml">Início</a></td>
-				<td><a href="listatarefas.xhtml">Listagem de Tarefas</a></td>
-				<td><a href="cadastrartarefa.xhtml">Cadastrar Tarefa</a></td>
-			</tr>
-		</table>
-		<hr />
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="cabecalho.xhtml" />
+		</ui:insert>
 	</div>
 
 	<h:form>
@@ -39,7 +33,8 @@
 			<br />
 		</h:panelGrid>
 
-		<h:commandButton value="Cadastrar" action="#{tarefaBean.salvar(tarefaBean.tarefa)}" />
+		<h:commandButton value="Cadastrar"
+			action="#{tarefaBean.salvar(tarefaBean.tarefa)}" />
 	</h:form>
 
 </h:body>
