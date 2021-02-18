@@ -1,9 +1,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-	<title>Gestão de Tarefas</title>
+	<title>Cadastrar Tarefa</title>
 </h:head>
 
 <h:body>
@@ -14,12 +14,34 @@
 		<table>
 			<tr>
 				<td><a href="index.xhtml">Início</a></td>
-				<td><a href="#">Listagem de Tarefas</a></td>
-				<td><a href="#">Cadastrar Tarefa</a></td>
+				<td><a href="listatarefas.xhtml">Listagem de Tarefas</a></td>
+				<td><a href="cadastrartarefa.xhtml">Cadastrar Tarefa</a></td>
 			</tr>
 		</table>
 		<hr />
 	</div>
 
+	<h:form>
+		<h:panelGrid columns="2">
+			Título: 
+			<h:inputText value="#{tarefaBean.tarefa.titulo}" />
+			Descrição:
+			<h:inputTextarea value="#{tarefaBean.tarefa.descricao}" />
+		</h:panelGrid>
+		<h:panelGrid columns="4">
+			Responsável:
+			<h:inputText value="#{tarefaBean.tarefa.responsavel}" />
+			Prioridade:
+			<h:inputText value="#{tarefaBean.tarefa.prioridade}" />
+			<br />
+			Deadline:
+			<h:inputText value="#{tarefaBean.tarefa.deadline}" />
+			<br />
+		</h:panelGrid>
+
+		<h:commandButton value="Cadastrar" action="#{tarefaBean.salvar(tarefaBean.tarefa)}" />
+	</h:form>
+
 </h:body>
+
 </html>

@@ -11,6 +11,7 @@ import com.ramon.gestaotarefas.model.Tarefa;
 public class TarefaDAO {
 
 	public static void main(String[] args) throws ParseException {
+		// conseguimos a EntityManager
 		EntityManager em = JPAUtil.getEntityManager();
 
 		Tarefa tarefa = new Tarefa();

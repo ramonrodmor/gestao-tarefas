@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:body>
+	<h:form>
+		<h:dataTable border="1" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
+			<h:column>
+				<f:facet name="header">
+					Número
+				</f:facet>
+				#{tarefa.id}
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					Título
+				</f:facet>
+				#{tarefa.titulo}
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					Responsável
+				</f:facet>
+				#{tarefa.responsavel}
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					Ações
+				</f:facet>
+				<a href="#">Editar</a>
+				|
+				<h:commandLink action="#{tarefaBean.excluir(tarefa)}">
+					Excluir
+				</h:commandLink>
+				|
+				<a href="#">Concluir</a>
+			</h:column>
+		</h:dataTable>
+	</h:form>
+</h:body>
+</html>

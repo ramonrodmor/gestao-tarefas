@@ -21,8 +21,7 @@ public class Tarefa {
 	private String descricao;
 	private String responsavel;
 	private String prioridade;
-	@Temporal(TemporalType.DATE)
-	private Date deadline;
+	private String deadline;
 	
 	public Tarefa() {
 		
@@ -34,9 +33,7 @@ public class Tarefa {
 		this.descricao = descricao;
 		this.responsavel = responsavel;
 		this.prioridade = prioridade;
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-		Date data = formato.parse("23/02/2021");
-		this.deadline = data;
+		this.deadline = deadline;
 	}
 
 	public Long getId() {
@@ -79,14 +76,12 @@ public class Tarefa {
 		this.prioridade = prioridade;
 	}
 
-	public Date getDeadline() {
+	public String getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(String deadline) throws ParseException {
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-		Date data = formato.parse("23/02/2021");
-		this.deadline = data;
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
 	}
 
 }
