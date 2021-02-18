@@ -33,6 +33,12 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">
+					Situação
+				</f:facet>
+				#{tarefa.situacao}
+			</h:column>
+			<h:column>
+				<f:facet name="header">
 					Ações
 				</f:facet>
 				<a href="#">Editar</a>
@@ -41,7 +47,9 @@
 					Excluir
 				</h:commandLink>
 				|
-				<a href="#">Concluir</a>
+				<h:commandLink action="#{tarefaBean.concluir(tarefa)}">
+					Concluir
+				</h:commandLink>
 			</h:column>
 		</h:dataTable>
 	</h:form>

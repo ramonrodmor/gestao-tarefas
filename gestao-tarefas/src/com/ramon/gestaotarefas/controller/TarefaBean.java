@@ -56,5 +56,19 @@ public class TarefaBean {
 		transaction.commit();
 		entityManager.close();
 	}
+	
+	public void concluir(Tarefa tarefa) {
+		
+		tarefa.setSituacao("concluída");
+		
+		// conseguimos a EntityManager
+		EntityManager entityManager = JPAUtil.getEntityManager();
+		EntityTransaction transaction = entityManager.getTransaction();
+		
+		transaction.begin();
+		tarefa = entityManager.merge(tarefa);
+		transaction.commit();
+		entityManager.close();
+	}
 
 }

@@ -6,6 +6,7 @@ Recrutamento Dev Java ESIG - Aplicação Exemplo: Sistema de Gestão de Tarefas
 * Publicar projeto no [Heroku](https://www.heroku.com/)
 * Renomear [obs1](#)
 * Automatizar processo de criação de database para ajustar [obs2](#)
+* Trabalhar tela de listagem para incluir filtros e remover coluna de situação
 
 ## Requisitos
 * Eclipse IDE for Enterprise Java Developers

@@ -1,6 +1,5 @@
 package com.ramon.gestaotarefas.model;
 
-import java.text.ParseException;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -17,18 +16,21 @@ public class Tarefa {
 	private String responsavel;
 	private String prioridade;
 	private String deadline;
+	private String situacao = "em andamento";
 	
+
 	public Tarefa() {
 		
 	}
 
-	public Tarefa(Long id, String titulo, String descricao, String responsavel, String prioridade, String deadline) throws ParseException {
+	public Tarefa(Long id, String titulo, String descricao, String responsavel, String prioridade, String deadline, String situacao) {
 		this.id = id;
 		this.titulo = titulo;
 		this.descricao = descricao;
 		this.responsavel = responsavel;
 		this.prioridade = prioridade;
 		this.deadline = deadline;
+		this.situacao = situacao;
 	}
 
 	public Long getId() {
@@ -79,4 +81,11 @@ public class Tarefa {
 		this.deadline = deadline;
 	}
 
+	public String getSituacao() {
+		return situacao;
+	}
+	
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
+	}
 }

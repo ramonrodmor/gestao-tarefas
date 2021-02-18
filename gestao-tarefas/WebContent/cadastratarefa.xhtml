@@ -1,7 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
 
 <h:head>
 	<title>Cadastrar Tarefa</title>
@@ -26,7 +27,12 @@
 			Responsável:
 			<h:inputText value="#{tarefaBean.tarefa.responsavel}" />
 			Prioridade:
-			<h:inputText value="#{tarefaBean.tarefa.prioridade}" />
+			<h:selectOneMenu id="option" value="#{tarefaBean.tarefa.prioridade}">
+				<f:selectItem itemLabel="" />
+				<f:selectItem itemLabel="alta" itemValue="alta" />
+				<f:selectItem itemLabel="média" itemValue="média" />
+				<f:selectItem itemLabel="baixa" itemValue="baixa" />
+			</h:selectOneMenu>
 			<br />
 			Deadline:
 			<h:inputText value="#{tarefaBean.tarefa.deadline}" />
