@@ -13,4 +13,6 @@ Recrutamento Dev Java ESIG - Aplicação Exemplo: Sistema de Gestão de Tarefas
 * Postgres instalado - banco de dados chamado "gestaoTarefas" criado [obs2](#)
 
 ## Como utilizar [obs1](#)
+* Criar database chamada "gestaoTarefas" [obs2](#)
+* Alterar propriedades de usuário e senha do postgresql em \src\META-INF\persistence.xml
 * Acessar em [localhost](http://localhost:8080/gestao-tarefas/): http://localhost:8080/gestao-tarefas/
