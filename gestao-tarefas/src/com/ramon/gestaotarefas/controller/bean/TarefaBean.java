@@ -25,7 +25,7 @@ public class TarefaBean {
 
 	public List<Tarefa> getListaDeTarefas() {
 
-		return this.listaDeTarefas = buscaListaNoBanco();
+		return this.listaDeTarefas = listarTarefas(filtroDeTarefa);
 	}
 
 	public Tarefa getNovaTarefa() {
@@ -38,21 +38,16 @@ public class TarefaBean {
 
 	// --------------- MÉTODOS --------------- //
 
-	public List<Tarefa> buscaListaNoBanco() {
-		
+	public List<Tarefa> listarTarefas(Tarefa filtroDeTarefa) {
+
 		if (this.listaDeTarefas == null) {
+
 			EntityManager entityManager = JPAUtil.getEntityManager();
-			Query query = entityManager.createQuery(
-					"select a from Tarefa a where a.situacao like 'em andamento'", Tarefa.class);
+			Query query = entityManager.createQuery(montarQueryFiltro(filtroDeTarefa), Tarefa.class);
 			this.listaDeTarefas = query.getResultList();
 			entityManager.close();
 		}
 		return this.listaDeTarefas;
-	}
-
-	public List<Tarefa> filtrarTarefas(Tarefa filtroDeTarefa) {
-
-		return buscaListaNoBanco();
 	}
 
 	public String salvarTarefa(Tarefa tarefa) {
@@ -65,15 +60,14 @@ public class TarefaBean {
 		entityManager.persist(tarefa);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		
+
 		return "cadastratarefa";
 	}
 
 	public void excluirTarefa(Tarefa tarefa) {
-		
 
 		this.listaDeTarefas.remove(tarefa);
-		
+
 		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
@@ -98,6 +92,36 @@ public class TarefaBean {
 		tarefa = entityManager.merge(tarefa);
 		transaction.commit();
 		entityManager.close();
+	}
+
+	public String montarQueryFiltro(Tarefa filtroTarefa) {
+
+		String stringQuery = "";
+		if (filtroTarefa.getId() == null) {
+			stringQuery = "select a from Tarefa a where a.situacao like 'em andamento'";
+		} else {
+			stringQuery = "select a from Tarefa a where ";
+			if (filtroTarefa.getId() == 0) {
+				filtroTarefa.setId(null);
+			} else {
+				stringQuery += "a.id = " + filtroTarefa.getId() + " and ";
+			}
+			if (filtroTarefa.getTitulo() != "") {
+				stringQuery += "(a.titulo like '%" + filtroTarefa.getTitulo() + "%' or a.descricao like '%"
+						+ filtroTarefa.getTitulo() + "%') and ";
+			}
+			if (filtroTarefa.getResponsavel() != "") {
+				stringQuery += "a.responsavel like '%" + filtroTarefa.getResponsavel() + "%' and ";
+			}
+			if (filtroTarefa.getPrioridade() != "") {
+				stringQuery += "a.prioridade like '%" + filtroTarefa.getPrioridade() + "%' and ";
+			}
+			if (filtroTarefa.getSituacao() != "") {
+				stringQuery += "a.situacao like '%" + filtroTarefa.getSituacao() + "%'";
+			}
+
+		}
+		return stringQuery;
 	}
 
 }

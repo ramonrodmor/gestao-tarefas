@@ -20,18 +20,24 @@
 
 			<h:panelGrid columns="2">
 				Número: 
-				<h:inputText value="#{tarefaBean.filtroTarefa.titulo}"/>
+				<h:inputText value="#{tarefaBean.filtroTarefa.id}" converterMessage="Apenas números são permitidos"/>
 				Título/Descrição:
 				<h:inputText value="#{tarefaBean.filtroTarefa.titulo}"/>
 			</h:panelGrid>
 
-			<h:panelGrid columns="5">
+			<h:panelGrid columns="4">
 				Responsável:
 				<h:selectOneMenu id="responsavel" value="#{tarefaBean.filtroTarefa.responsavel}">
 					<f:selectItem></f:selectItem>
-					<f:selectItem itemLabel="Ramon" itemValue="Ramon"/>
-					<f:selectItem itemLabel="Marcos" itemValue="Marcos"/>
-					<f:selectItem itemLabel="João" itemValue="João"/>
+					<f:selectItems value="#{responsavelBean.listaSelecaoResponsaveis}"/>
+				</h:selectOneMenu>
+				
+				Prioridade:
+				<h:selectOneMenu id="prioridade" value="#{tarefaBean.filtroTarefa.prioridade}">
+					<f:selectItem></f:selectItem>
+					<f:selectItem itemLabel="Baixa" itemValue="baixa" />
+					<f:selectItem itemLabel="Média" itemValue="media" />
+					<f:selectItem itemLabel="Alta" itemValue="alta" />
 				</h:selectOneMenu>
 			
 				Situação:
@@ -41,7 +47,7 @@
 					<f:selectItem itemLabel="Todas" itemValue="%" />
 				</h:selectOneMenu>
 
-				<h:commandButton value="Buscar Tarefas" action="#{tarefaBean.filtrarTarefas(tarefaBean.filtroTarefa)}"/>
+				<h:commandButton value="Buscar Tarefas" action="#{tarefaBean.listarTarefas(tarefaBean.filtroTarefa)}"/>
 			</h:panelGrid>
 		</h:form>
 	</div>
@@ -71,9 +77,9 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						Situação
+						Prioridade
 					</f:facet>
-					#{tarefa.situacao}
+					#{tarefa.prioridade}
 				</h:column>
 				<h:column>
 					<f:facet name="header">
