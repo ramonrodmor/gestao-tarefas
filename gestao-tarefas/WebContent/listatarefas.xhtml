@@ -38,7 +38,7 @@
 				<h:selectOneMenu id="situacao" value="#{tarefaBean.filtroTarefa.situacao}">
 					<f:selectItem itemLabel="Em andamento" itemValue="em andamento"/>
 					<f:selectItem itemLabel="Concluídas" itemValue ="concluida"/>
-					<f:selectItem itemLabel="Todas" itemValue="." />
+					<f:selectItem itemLabel="Todas" itemValue="%" />
 				</h:selectOneMenu>
 
 				<h:commandButton value="Buscar Tarefas" action="#{tarefaBean.filtrarTarefas(tarefaBean.filtroTarefa)}"/>
@@ -50,8 +50,7 @@
 
 	<div align="center">
 		<h:form>
-			<h:dataTable id="tabela" border="1" value="#{tarefaBean.listaDeTarefas}"
-				var="tarefa">
+			<h:dataTable id="tabela" border="1" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
 				<h:column>
 					<f:facet name="header">
 						Número
@@ -82,11 +81,11 @@
 					</f:facet>
 					<a href="#">Editar</a>
 					|
-					<h:commandLink action="#{tarefaBean.excluirTarefa(tarefa)}" update="tabela">
+					<h:commandLink action="#{tarefaBean.excluirTarefa(tarefa)}">
 						Excluir
 					</h:commandLink>
 					|
-					<h:commandLink action="#{tarefaBean.concluirTarefa(tarefa)}" update="tabela">
+					<h:commandLink action="#{tarefaBean.concluirTarefa(tarefa)}">
 						Concluir
 					</h:commandLink>
 				</h:column>
