@@ -25,11 +25,7 @@ public class TarefaBean {
 
 	public List<Tarefa> getListaDeTarefas() {
 
-		if (filtroDeTarefa.getSituacao().equals(".")) {
-			return this.listaDeTarefas = buscaListaNoBanco();
-		} else {
-			return this.listaDeTarefas = filtrarTarefas(this.filtroDeTarefa);
-		}
+		return this.listaDeTarefas = buscaListaNoBanco();
 	}
 
 	public Tarefa getNovaTarefa() {
@@ -43,41 +39,24 @@ public class TarefaBean {
 	// --------------- MÉTODOS --------------- //
 
 	public List<Tarefa> buscaListaNoBanco() {
-
+		
 		if (this.listaDeTarefas == null) {
-			// conseguimos a EntityManager
 			EntityManager entityManager = JPAUtil.getEntityManager();
-			Query query = entityManager.createQuery("select a from Tarefa a where a.situacao like 'em andamento'",
-					Tarefa.class);
-
+			Query query = entityManager.createQuery(
+					"select a from Tarefa a where a.situacao like 'em andamento'", Tarefa.class);
 			this.listaDeTarefas = query.getResultList();
 			entityManager.close();
 		}
-		return listaDeTarefas;
+		return this.listaDeTarefas;
 	}
 
 	public List<Tarefa> filtrarTarefas(Tarefa filtroDeTarefa) {
 
-		if (this.listaDeTarefas == null) {
-			// conseguimos a EntityManager
-			EntityManager entityManager = JPAUtil.getEntityManager();
-			Query query;
-
-			if (filtroDeTarefa.getSituacao().equals(".")) {
-				query = entityManager.createQuery("select a from Tarefa a", Tarefa.class);
-			} else {
-				query = entityManager.createQuery(
-						"select a from Tarefa a where a.situacao='" + filtroDeTarefa.getSituacao() + "'", Tarefa.class);
-			}
-			this.listaDeTarefas = query.getResultList();
-			entityManager.close();
-		}
-		return listaDeTarefas;
+		return buscaListaNoBanco();
 	}
 
-	public void salvarTarefa(Tarefa tarefa) {
-		System.out.println("Salvo a " + tarefa.getTitulo());
-		System.out.println("Responsavel e o " + tarefa.getResponsavel());
+	public String salvarTarefa(Tarefa tarefa) {
+		tarefa.setSituacao("em andamento");
 
 		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
@@ -86,16 +65,21 @@ public class TarefaBean {
 		entityManager.persist(tarefa);
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		return "cadastratarefa";
 	}
 
 	public void excluirTarefa(Tarefa tarefa) {
+		
+
+		this.listaDeTarefas.remove(tarefa);
+		
 		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
 
 		transaction.begin();
 		tarefa = entityManager.merge(tarefa);
-		this.listaDeTarefas.remove(tarefa);
 		entityManager.remove(tarefa);
 		transaction.commit();
 		entityManager.close();
@@ -104,6 +88,7 @@ public class TarefaBean {
 	public void concluirTarefa(Tarefa tarefa) {
 
 		tarefa.setSituacao("concluida");
+		this.listaDeTarefas.remove(tarefa);
 
 		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();

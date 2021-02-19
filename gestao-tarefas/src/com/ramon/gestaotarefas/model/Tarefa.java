@@ -21,7 +21,7 @@ public class Tarefa {
 	private String responsavel;
 	private String prioridade;
 	private String deadline;
-	private String situacao = "em andamento";
+	private String situacao;
 	
 	// --------------- CONSTRUTORES --------------- //
 	public Tarefa() {
