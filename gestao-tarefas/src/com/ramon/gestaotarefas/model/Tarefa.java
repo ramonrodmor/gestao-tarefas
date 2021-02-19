@@ -2,14 +2,19 @@ package com.ramon.gestaotarefas.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="tarefas")
 public class Tarefa {
 	
-	@Id @GeneratedValue
+	// --------------- ATRIBUTOS --------------- //
+	
+	@SequenceGenerator(name = "tarefaGenerator", sequenceName = "TAREFA_SEQ", allocationSize = 10)
+	@Id @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="tarefaGenerator")
 	private Long id;
 	private String titulo;
 	private String descricao;
@@ -18,7 +23,7 @@ public class Tarefa {
 	private String deadline;
 	private String situacao = "em andamento";
 	
-
+	// --------------- CONSTRUTORES --------------- //
 	public Tarefa() {
 		
 	}
@@ -33,6 +38,7 @@ public class Tarefa {
 		this.situacao = situacao;
 	}
 
+	// --------------- GETTERS E SETTERS --------------- //
 	public Long getId() {
 		return id;
 	}

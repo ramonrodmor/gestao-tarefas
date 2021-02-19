@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
+
+<h:head>
+	<title>Responsaveis</title>
+</h:head>
+
+<h:body>
+
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="cabecalho.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div  align="center">
+		<h:form>
+			Novo responsável: <br/>
+			<h:panelGrid columns="3">
+				Nome: 
+				<h:inputText value="#{responsavelBean.novoResponsavel.nome}" />
+				<h:commandButton value="Cadastrar"
+					action="#{responsavelBean.salvarResponsavel(responsavelBean.novoResponsavel)}" />
+			</h:panelGrid>	
+	</h:form>
+	</div>	
+	<br/>
+
+	<div align="center">
+		Responsáveis cadastrados: <br/>
+		<h:form>
+			<h:dataTable border="1" value="#{responsavelBean.listaDeResponsaveis}"
+				var="responsavel">
+				<h:column>
+					<f:facet name="header">
+						Número
+					</f:facet>
+					#{responsavel.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Nome
+					</f:facet>
+					#{responsavel.nome}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Ações
+					</f:facet>
+					<a href="#">Editar</a>
+					|
+					<h:commandLink action="#{responsavelBean.excluirResponsavel(responsavel)}">
+						Excluir
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</div>
+	
+</h:body>
+
+</html>

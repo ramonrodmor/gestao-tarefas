@@ -16,32 +16,36 @@
 		</ui:insert>
 	</div>
 
-	<h:form>
-		<h:panelGrid columns="2">
-			Título: 
-			<h:inputText value="#{tarefaBean.tarefa.titulo}" />
-			Descrição:
-			<h:inputTextarea value="#{tarefaBean.tarefa.descricao}" />
-		</h:panelGrid>
-		<h:panelGrid columns="4">
-			Responsável:
-			<h:inputText value="#{tarefaBean.tarefa.responsavel}" />
-			Prioridade:
-			<h:selectOneMenu id="option" value="#{tarefaBean.tarefa.prioridade}">
-				<f:selectItem itemLabel="" />
-				<f:selectItem itemLabel="alta" itemValue="alta" />
-				<f:selectItem itemLabel="média" itemValue="média" />
-				<f:selectItem itemLabel="baixa" itemValue="baixa" />
-			</h:selectOneMenu>
-			<br />
-			Deadline:
-			<h:inputText value="#{tarefaBean.tarefa.deadline}" />
-			<br />
-		</h:panelGrid>
-
-		<h:commandButton value="Cadastrar"
-			action="#{tarefaBean.salvar(tarefaBean.tarefa)}" />
+	<div  align="center">
+		<h:form>
+			<h:panelGrid columns="2">
+				Título: 
+				<h:inputText value="#{tarefaBean.novaTarefa.titulo}" />
+				Descrição:
+				<h:inputTextarea value="#{tarefaBean.novaTarefa.descricao}" />
+			</h:panelGrid>
+			<h:panelGrid columns="4">
+				Responsável:
+				<h:selectOneMenu id="responsavel" value="#{tarefaBean.novaTarefa.responsavel}">
+					<f:selectItem></f:selectItem>
+					<f:selectItems value="#{responsavelBean.listaSelecaoResponsaveis}"/>
+				</h:selectOneMenu>
+				Prioridade:
+				<h:selectOneMenu id="prioridade" value="#{tarefaBean.novaTarefa.prioridade}">
+					<f:selectItem itemLabel="Baixa" itemValue="baixa" />
+					<f:selectItem itemLabel="Média" itemValue="media" />
+					<f:selectItem itemLabel="Alta" itemValue="alta" />
+				</h:selectOneMenu>
+				<br />
+				Deadline:
+				<h:inputText value="#{tarefaBean.novaTarefa.deadline}" />
+				<br />
+			</h:panelGrid>
+	
+			<h:commandButton value="Cadastrar"
+				action="#{tarefaBean.salvarTarefa(tarefaBean.novaTarefa)}" />
 	</h:form>
+	</div>
 
 </h:body>
 

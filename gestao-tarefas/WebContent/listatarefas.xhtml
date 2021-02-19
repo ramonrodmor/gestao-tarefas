@@ -2,7 +2,11 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
-	
+
+<h:head>
+	<title>Listar Tarefa</title>
+</h:head>
+
 <h:body>
 
 	<div id="header">
@@ -10,48 +14,85 @@
 			<ui:include src="cabecalho.xhtml" />
 		</ui:insert>
 	</div>
+
+	<div align="center">
+		<h:form>
+
+			<h:panelGrid columns="2">
+				Número: 
+				<h:inputText value="#{tarefaBean.filtroTarefa.titulo}"/>
+				Título/Descrição:
+				<h:inputText value="#{tarefaBean.filtroTarefa.titulo}"/>
+			</h:panelGrid>
+
+			<h:panelGrid columns="5">
+				Responsável:
+				<h:selectOneMenu id="responsavel" value="#{tarefaBean.filtroTarefa.responsavel}">
+					<f:selectItem></f:selectItem>
+					<f:selectItem itemLabel="Ramon" itemValue="Ramon"/>
+					<f:selectItem itemLabel="Marcos" itemValue="Marcos"/>
+					<f:selectItem itemLabel="João" itemValue="João"/>
+				</h:selectOneMenu>
+			
+				Situação:
+				<h:selectOneMenu id="situacao" value="#{tarefaBean.filtroTarefa.situacao}">
+					<f:selectItem itemLabel="Em andamento" itemValue="em andamento"/>
+					<f:selectItem itemLabel="Concluídas" itemValue ="concluida"/>
+					<f:selectItem itemLabel="Todas" itemValue="." />
+				</h:selectOneMenu>
+
+				<h:commandButton value="Buscar Tarefas" action="#{tarefaBean.filtrarTarefas(tarefaBean.filtroTarefa)}"/>
+			</h:panelGrid>
+		</h:form>
+	</div>
 	
-	<h:form>
-		<h:dataTable border="1" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
-			<h:column>
-				<f:facet name="header">
-					Número
-				</f:facet>
-				#{tarefa.id}
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Título
-				</f:facet>
-				#{tarefa.titulo}
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Responsável
-				</f:facet>
-				#{tarefa.responsavel}
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Situação
-				</f:facet>
-				#{tarefa.situacao}
-			</h:column>
-			<h:column>
-				<f:facet name="header">
-					Ações
-				</f:facet>
-				<a href="#">Editar</a>
-				|
-				<h:commandLink action="#{tarefaBean.excluir(tarefa)}">
-					Excluir
-				</h:commandLink>
-				|
-				<h:commandLink action="#{tarefaBean.concluir(tarefa)}">
-					Concluir
-				</h:commandLink>
-			</h:column>
-		</h:dataTable>
-	</h:form>
+	<br/>
+
+	<div align="center">
+		<h:form>
+			<h:dataTable id="tabela" border="1" value="#{tarefaBean.listaDeTarefas}"
+				var="tarefa">
+				<h:column>
+					<f:facet name="header">
+						Número
+					</f:facet>
+					#{tarefa.id}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Título
+					</f:facet>
+					#{tarefa.titulo}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Responsável
+					</f:facet>
+					#{tarefa.responsavel}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Situação
+					</f:facet>
+					#{tarefa.situacao}
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Ações
+					</f:facet>
+					<a href="#">Editar</a>
+					|
+					<h:commandLink action="#{tarefaBean.excluirTarefa(tarefa)}" update="tabela">
+						Excluir
+					</h:commandLink>
+					|
+					<h:commandLink action="#{tarefaBean.concluirTarefa(tarefa)}" update="tabela">
+						Concluir
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</div>
+
 </h:body>
 </html>

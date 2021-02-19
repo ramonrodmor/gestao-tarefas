@@ -5,14 +5,22 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
 	http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 
-	<persistence-unit name="default" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="default"
+		transaction-type="RESOURCE_LOCAL">
+		<class>com.ramon.gestaotarefas.model.Tarefa</class>
+		<class>com.ramon.gestaotarefas.model.Responsavel</class>
 		<properties>
-			<property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> <!-- DB Driver -->
-			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost/gestaoTarefas" /> <!-- BD Mane -->
-			<property name="javax.persistence.jdbc.user" value="postgres" /> <!-- DB User -->
-			<property name="javax.persistence.jdbc.password" value="postgres" /> <!-- DB Password -->
-			
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" /> <!-- DB Dialeto -->
+			<property name="javax.persistence.jdbc.driver"
+				value="org.postgresql.Driver" /> <!-- DB Driver -->
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:postgresql://localhost/gestaoTarefas" /> <!-- BD Mane -->
+			<property name="javax.persistence.jdbc.user"
+				value="postgres" /> <!-- DB User -->
+			<property name="javax.persistence.jdbc.password"
+				value="postgres" /> <!-- DB Password -->
+
+			<property name="hibernate.dialect"
+				value="org.hibernate.dialect.PostgreSQLDialect" /> <!-- DB Dialeto -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 			<property name="hibernate.show_sql" value="true" /> <!-- log sql no console -->
