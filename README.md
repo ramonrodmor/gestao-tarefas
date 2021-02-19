@@ -3,14 +3,12 @@
 Recrutamento Dev Java ESIG - Aplicação Exemplo: Sistema de Gestão de Tarefas
 
 ## Tarefas
+* Corririr - sistema volta para tarefas em andamento quando concluo ou excluo alguma, mesmo que estejam filtradas
 * Listar requisitos que faltam
-* Corrigir problema da exclusão de tarefas concluídas (não são removidas do banco)
-* Implementar os filtros de tarefas
 * Criar tela de edição das tarefas
 * Limpar campos sempre que uma tarefa é criada ou um responsável é cadastrado
 * Publicar projeto no [Heroku](https://www.heroku.com/)
 * Renomear [obs1](#)
-* Trabalhar tela de listagem para incluir filtros e remover coluna de situação
 
 ## Requisitos
 * Eclipse IDE for Enterprise Java Developers
