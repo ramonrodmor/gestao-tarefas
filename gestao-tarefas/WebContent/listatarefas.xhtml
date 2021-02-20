@@ -16,8 +16,10 @@
 	</div>
 
 	<div align="center">
-		<h:form>
-
+		
+		<h3>Filtrar Tarefas</h3>
+		
+		<h:form id="filtro">
 			<h:panelGrid columns="2">
 				Número: 
 				<h:inputText value="#{tarefaBean.filtroTarefa.id}" converterMessage="Apenas números são permitidos"/>
@@ -55,8 +57,10 @@
 	<br/>
 
 	<div align="center">
-		<h:form>
-			<h:dataTable id="tabela" border="1" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
+		
+		<h3>Lista de Tarefas</h3>
+		<h:form id="lista">
+			<h:dataTable id="tabela" border="1" rowClasses="table-linha-par,table-linha-impar" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
 				<h:column>
 					<f:facet name="header">
 						Número
@@ -85,15 +89,12 @@
 					<f:facet name="header">
 						Ações
 					</f:facet>
-					<a href="#">Editar</a>
+					<h:commandButton value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
 					|
-					<h:commandLink action="#{tarefaBean.excluirTarefa(tarefa)}">
-						Excluir
-					</h:commandLink>
+					<h:commandButton value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" update="pesquisa" />
 					|
-					<h:commandLink action="#{tarefaBean.concluirTarefa(tarefa)}">
-						Concluir
-					</h:commandLink>
+					<h:commandButton value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" update="pesquisa" />
+
 				</h:column>
 			</h:dataTable>
 		</h:form>

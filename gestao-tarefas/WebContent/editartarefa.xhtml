@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Editar Tarefa</title>
+</h:head>
+
+<h:body>
+
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="cabecalho.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div align="center">
+		<h3>Editar Tarefa</h3>
+		<h:form>
+			<h:inputHidden value="#{tarefaBean.tarefaEditada.id}"/>
+			<h:panelGrid columns="2">
+				Título: 
+				<h:inputText value="#{tarefaBean.tarefaEditada.titulo}" />
+				Descrição:
+				<h:inputTextarea value="#{tarefaBean.tarefaEditada.descricao}" />
+			</h:panelGrid>
+			<h:panelGrid columns="4">
+				Responsável:
+				<h:selectOneMenu id="responsavel"
+					value="#{tarefaBean.tarefaEditada.responsavel}">
+					<f:selectItem></f:selectItem>
+					<f:selectItems value="#{responsavelBean.listaSelecaoResponsaveis}" />
+				</h:selectOneMenu>
+				Prioridade:
+				<h:selectOneMenu id="prioridade"
+					value="#{tarefaBean.tarefaEditada.prioridade}">
+					<f:selectItem itemLabel="Baixa" itemValue="baixa" />
+					<f:selectItem itemLabel="Média" itemValue="media" />
+					<f:selectItem itemLabel="Alta" itemValue="alta" />
+				</h:selectOneMenu>
+				Deadline:
+				<h:inputText value="#{tarefaBean.tarefaEditada.deadline}" />
+			</h:panelGrid>
+			<h:inputHidden value="#{tarefaBean.tarefaEditada.situacao}"/>
+
+			<h:commandButton value="Salvar alterações"
+				action="#{tarefaBean.salvarTarefaEditada(tarefaBean.tarefaEditada)}" />
+		</h:form>
+	</div>
+
+</h:body>
+
+</html>

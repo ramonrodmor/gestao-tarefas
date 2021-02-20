@@ -19,21 +19,32 @@ public class TarefaBean {
 
 	private Tarefa novaTarefa = new Tarefa();
 
+	private Tarefa tarefaEditada = new Tarefa();
+	
+	private Tarefa tarefaEmEdicao = new Tarefa();
+
 	private List<Tarefa> listaDeTarefas;
 
 	// --------------- GETTERS --------------- //
 
-	public List<Tarefa> getListaDeTarefas() {
-
-		return this.listaDeTarefas = listarTarefas(filtroDeTarefa);
+	public Tarefa getFiltroTarefa() {
+		return this.filtroDeTarefa;
 	}
 
 	public Tarefa getNovaTarefa() {
 		return this.novaTarefa;
 	}
 
-	public Tarefa getFiltroTarefa() {
-		return this.filtroDeTarefa;
+	public Tarefa getTarefaEditada() {
+		return this.tarefaEditada;
+	}
+	
+	public Tarefa getTarefaEmEdicao() {
+		return tarefaEmEdicao;
+	}
+	
+	public List<Tarefa> getListaDeTarefas() {
+		return this.listaDeTarefas = listarTarefas(filtroDeTarefa);
 	}
 
 	// --------------- MÉTODOS --------------- //
@@ -51,9 +62,9 @@ public class TarefaBean {
 	}
 
 	public String salvarTarefa(Tarefa tarefa) {
+		
 		tarefa.setSituacao("em andamento");
 
-		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -61,37 +72,53 @@ public class TarefaBean {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
-		return "cadastratarefa";
+		return "listatarefas";
+	}
+
+	public String editarTarefa(Tarefa tarefa) {
+		
+		this.tarefaEditada = this.tarefaEmEdicao = tarefa;
+		
+		return "editartarefa";
+	}
+
+	public String salvarTarefaEditada(Tarefa tarefaEditada) {
+		
+		// conseguimos a EntityManager
+		EntityManager entityManager = JPAUtil.getEntityManager();
+
+		entityManager.getTransaction().begin();
+		this.tarefaEmEdicao = entityManager.merge(tarefaEditada);
+		entityManager.getTransaction().commit();
+		entityManager.close();
+
+		return "listatarefas";
 	}
 
 	public void excluirTarefa(Tarefa tarefa) {
 
-		this.listaDeTarefas.remove(tarefa);
-
 		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
 
-		transaction.begin();
+		entityManager.getTransaction().begin();
 		tarefa = entityManager.merge(tarefa);
 		entityManager.remove(tarefa);
-		transaction.commit();
+		entityManager.getTransaction().commit();
 		entityManager.close();
+
 	}
 
 	public void concluirTarefa(Tarefa tarefa) {
 
-		tarefa.setSituacao("concluida");
-		this.listaDeTarefas.remove(tarefa);
-
 		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
 
-		transaction.begin();
+		entityManager.getTransaction().begin();
 		tarefa = entityManager.merge(tarefa);
-		transaction.commit();
+		tarefa.setSituacao("concluida");
+		entityManager.getTransaction().commit();
 		entityManager.close();
+
 	}
 
 	public String montarQueryFiltro(Tarefa filtroTarefa) {

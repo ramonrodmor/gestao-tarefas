@@ -54,7 +54,7 @@ public class ResponsavelBean {
 
 	// --------------- MÉTODOS --------------- //
 
-	public void salvarResponsavel(Responsavel responsavel) {
+	public String salvarResponsavel(Responsavel responsavel) {
 
 		System.out.println("Salvo o " + responsavel.getNome());
 
@@ -65,9 +65,11 @@ public class ResponsavelBean {
 		entityManager.persist(responsavel);
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		return "responsaveis";
 	}
 
-	public void excluirResponsavel(Responsavel responsavel) {
+	public String excluirResponsavel(Responsavel responsavel) {
 		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
 		EntityTransaction transaction = entityManager.getTransaction();
@@ -78,5 +80,7 @@ public class ResponsavelBean {
 		entityManager.remove(responsavel);
 		transaction.commit();
 		entityManager.close();
+		
+		return "responsaveis";
 	}
 }

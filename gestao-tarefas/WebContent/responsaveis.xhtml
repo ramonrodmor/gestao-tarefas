@@ -32,7 +32,7 @@
 	<div align="center">
 		Responsáveis cadastrados: <br/>
 		<h:form>
-			<h:dataTable border="1" value="#{responsavelBean.listaDeResponsaveis}"
+			<h:dataTable border="1" rowClasses="table-linha-par,table-linha-impar" value="#{responsavelBean.listaDeResponsaveis}"
 				var="responsavel">
 				<h:column>
 					<f:facet name="header">
