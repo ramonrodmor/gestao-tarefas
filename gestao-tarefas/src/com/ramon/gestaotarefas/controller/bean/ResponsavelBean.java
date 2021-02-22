@@ -18,37 +18,40 @@ public class ResponsavelBean {
 	// --------------- ATRIBUTOS --------------- //
 
 	private Responsavel novoResponsavel = new Responsavel();
-
 	private List<Responsavel> listaDeResponsaveis;
-
 	private List<SelectItem> listaSelecaoResponsaveis;
 
 	// --------------- GETTERS --------------- //
 
 	public Responsavel getNovoResponsavel() {
+
 		return novoResponsavel;
 	}
 
 	public List<Responsavel> getListaDeResponsaveis() {
+
 		if (this.listaDeResponsaveis == null) {
-			// conseguimos a EntityManager
+
 			EntityManager entityManager = JPAUtil.getEntityManager();
 			Query query = entityManager.createQuery("select a from Responsavel a", Responsavel.class);
 
 			this.listaDeResponsaveis = query.getResultList();
 			entityManager.close();
 		}
+
 		return listaDeResponsaveis;
 	}
 
 	public List<SelectItem> getListaSelecaoResponsaveis() {
+
 		this.listaSelecaoResponsaveis = new ArrayList<SelectItem>();
 		List<Responsavel> listaDeResponsaveis = getListaDeResponsaveis(); 
 		for(Responsavel responsavel : listaDeResponsaveis) {
-			SelectItem item = new SelectItem (responsavel.getNome(), responsavel.getNome());
+
+			SelectItem item = new SelectItem(responsavel.getNome(), responsavel.getNome());
 			this.listaSelecaoResponsaveis.add(item);
 		}
-		
+
 		return this.listaSelecaoResponsaveis;
 	}
 
@@ -56,31 +59,28 @@ public class ResponsavelBean {
 
 	public String salvarResponsavel(Responsavel responsavel) {
 
-		System.out.println("Salvo o " + responsavel.getNome());
-
-		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
 
 		entityManager.getTransaction().begin();
 		entityManager.persist(responsavel);
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		
+
+		novoResponsavel = new Responsavel();
+
 		return "responsaveis";
 	}
 
 	public String excluirResponsavel(Responsavel responsavel) {
-		// conseguimos a EntityManager
-		EntityManager entityManager = JPAUtil.getEntityManager();
-		EntityTransaction transaction = entityManager.getTransaction();
 
-		transaction.begin();
+		EntityManager entityManager = JPAUtil.getEntityManager();
+
+		entityManager.getTransaction().begin();
 		responsavel = entityManager.merge(responsavel);
-		listaDeResponsaveis.remove(responsavel);
 		entityManager.remove(responsavel);
-		transaction.commit();
+		entityManager.getTransaction().commit();
 		entityManager.close();
-		
+
 		return "responsaveis";
 	}
 }

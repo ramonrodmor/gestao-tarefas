@@ -1,0 +1,16 @@
+Requisitos
+- funcionaliades
+-- criar tarefa - ok
+-- atualizar tarefa - ok
+-- remover tarefa - ok
+-- listar tarefas - rever conforme áudio
+
+- dados da tarefa - ok
+- responsavel
+-- editar responsavel - implementar
+-- revisar limpeza dos campos
+-- revisar atualização da lista
+-- revisar try-catch-then
+
+- listagem deve permitir filtrar tarefas
+- listagem deve permitir realizar alterações

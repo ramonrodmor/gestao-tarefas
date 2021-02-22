@@ -3,6 +3,7 @@ package com.ramon.gestaotarefas.controller.bean;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -11,58 +12,65 @@ import com.ramon.gestaotarefas.controller.JPAUtil;
 import com.ramon.gestaotarefas.model.Tarefa;
 
 @ManagedBean
+@RequestScoped
 public class TarefaBean {
 
 	// --------------- ATRIBUTOS --------------- //
 
-	private Tarefa filtroDeTarefa = new Tarefa();
+	private Tarefa filtroTarefa = new Tarefa();
 
 	private Tarefa novaTarefa = new Tarefa();
 
-	private Tarefa tarefaEditada = new Tarefa();
-	
 	private Tarefa tarefaEmEdicao = new Tarefa();
+
+	private boolean filtrado;
 
 	private List<Tarefa> listaDeTarefas;
 
 	// --------------- GETTERS --------------- //
 
 	public Tarefa getFiltroTarefa() {
-		return this.filtroDeTarefa;
+		return this.filtroTarefa;
 	}
 
 	public Tarefa getNovaTarefa() {
 		return this.novaTarefa;
 	}
 
-	public Tarefa getTarefaEditada() {
-		return this.tarefaEditada;
-	}
-	
 	public Tarefa getTarefaEmEdicao() {
-		return tarefaEmEdicao;
+		return this.tarefaEmEdicao;
 	}
-	
+
 	public List<Tarefa> getListaDeTarefas() {
-		return this.listaDeTarefas = listarTarefas(filtroDeTarefa);
-	}
-
-	// --------------- MÉTODOS --------------- //
-
-	public List<Tarefa> listarTarefas(Tarefa filtroDeTarefa) {
 
 		if (this.listaDeTarefas == null) {
 
 			EntityManager entityManager = JPAUtil.getEntityManager();
-			Query query = entityManager.createQuery(montarQueryFiltro(filtroDeTarefa), Tarefa.class);
-			this.listaDeTarefas = query.getResultList();
+			this.listaDeTarefas = null;
+			
+			if (filtrado) {
+				Query query = entityManager.createQuery(montarQueryFiltro(this.filtroTarefa), Tarefa.class);
+				this.listaDeTarefas = query.getResultList();
+			} else {
+				Query query = entityManager.createQuery("select a from Tarefa a where a.situacao='em andamento'",
+						Tarefa.class);
+				this.listaDeTarefas = query.getResultList();
+			}
 			entityManager.close();
 		}
+
 		return this.listaDeTarefas;
 	}
 
+	// --------------- MÉTODOS --------------- //
+
+	public void filtrarTarefas(Tarefa filtro) {
+		this.filtroTarefa = filtro;
+		filtrado = true;
+	}
+
 	public String salvarTarefa(Tarefa tarefa) {
-		
+
 		tarefa.setSituacao("em andamento");
 
 		EntityManager entityManager = JPAUtil.getEntityManager();
@@ -76,15 +84,17 @@ public class TarefaBean {
 	}
 
 	public String editarTarefa(Tarefa tarefa) {
-		
-		this.tarefaEditada = this.tarefaEmEdicao = tarefa;
-		
+
+		// -------- LOG -------- //
+		System.out.println("ID da tarefa: " + tarefa.getId());
+		// -------- LOG -------- //
+		this.tarefaEmEdicao = tarefa;
+
 		return "editartarefa";
 	}
 
 	public String salvarTarefaEditada(Tarefa tarefaEditada) {
-		
-		// conseguimos a EntityManager
+
 		EntityManager entityManager = JPAUtil.getEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -97,7 +107,6 @@ public class TarefaBean {
 
 	public void excluirTarefa(Tarefa tarefa) {
 
-		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -110,7 +119,6 @@ public class TarefaBean {
 
 	public void concluirTarefa(Tarefa tarefa) {
 
-		// conseguimos a EntityManager
 		EntityManager entityManager = JPAUtil.getEntityManager();
 
 		entityManager.getTransaction().begin();
@@ -124,30 +132,28 @@ public class TarefaBean {
 	public String montarQueryFiltro(Tarefa filtroTarefa) {
 
 		String stringQuery = "";
-		if (filtroTarefa.getId() == null) {
-			stringQuery = "select a from Tarefa a where a.situacao like 'em andamento'";
+		stringQuery = "select a from Tarefa a where ";
+		if (filtroTarefa.getId() == 0) {
+			//filtroTarefa.setId(null);
 		} else {
-			stringQuery = "select a from Tarefa a where ";
-			if (filtroTarefa.getId() == 0) {
-				filtroTarefa.setId(null);
-			} else {
-				stringQuery += "a.id = " + filtroTarefa.getId() + " and ";
-			}
-			if (filtroTarefa.getTitulo() != "") {
-				stringQuery += "(a.titulo like '%" + filtroTarefa.getTitulo() + "%' or a.descricao like '%"
-						+ filtroTarefa.getTitulo() + "%') and ";
-			}
-			if (filtroTarefa.getResponsavel() != "") {
-				stringQuery += "a.responsavel like '%" + filtroTarefa.getResponsavel() + "%' and ";
-			}
-			if (filtroTarefa.getPrioridade() != "") {
-				stringQuery += "a.prioridade like '%" + filtroTarefa.getPrioridade() + "%' and ";
-			}
-			if (filtroTarefa.getSituacao() != "") {
-				stringQuery += "a.situacao like '%" + filtroTarefa.getSituacao() + "%'";
-			}
-
+			stringQuery += "a.id = " + filtroTarefa.getId() + " and ";
 		}
+		if (filtroTarefa.getTitulo() != "") {
+			stringQuery += "(a.titulo like '%" + filtroTarefa.getTitulo() + "%' or a.descricao like '%"
+					+ filtroTarefa.getTitulo() + "%') and ";
+		}
+		if (filtroTarefa.getResponsavel() != "") {
+			stringQuery += "a.responsavel like '%" + filtroTarefa.getResponsavel() + "%' and ";
+		}
+		if (filtroTarefa.getPrioridade() != "") {
+			stringQuery += "a.prioridade like '%" + filtroTarefa.getPrioridade() + "%' and ";
+		}
+		if (filtroTarefa.getSituacao().equals(".")) {
+			stringQuery += "a.situacao like '%'";
+		} else if (filtroTarefa.getSituacao() != "") {
+			stringQuery += "a.situacao like '%" + filtroTarefa.getSituacao() + "%'";
+		}
+
 		return stringQuery;
 	}
 

@@ -22,7 +22,7 @@
 		<h:form id="filtro">
 			<h:panelGrid columns="2">
 				Número: 
-				<h:inputText value="#{tarefaBean.filtroTarefa.id}" converterMessage="Apenas números são permitidos"/>
+				<h:inputText value="#{tarefaBean.filtroTarefa.id}" />
 				Título/Descrição:
 				<h:inputText value="#{tarefaBean.filtroTarefa.titulo}"/>
 			</h:panelGrid>
@@ -46,10 +46,10 @@
 				<h:selectOneMenu id="situacao" value="#{tarefaBean.filtroTarefa.situacao}">
 					<f:selectItem itemLabel="Em andamento" itemValue="em andamento"/>
 					<f:selectItem itemLabel="Concluídas" itemValue ="concluida"/>
-					<f:selectItem itemLabel="Todas" itemValue="%" />
+					<f:selectItem itemLabel="Todas" itemValue="." />
 				</h:selectOneMenu>
 
-				<h:commandButton value="Buscar Tarefas" action="#{tarefaBean.listarTarefas(tarefaBean.filtroTarefa)}"/>
+				<h:commandButton value="Buscar Tarefas" action="#{tarefaBean.filtrarTarefas(tarefaBean.filtroTarefa)}" update=""/>
 			</h:panelGrid>
 		</h:form>
 	</div>
@@ -60,30 +60,30 @@
 		
 		<h3>Lista de Tarefas</h3>
 		<h:form id="lista">
-			<h:dataTable id="tabela" border="1" rowClasses="table-linha-par,table-linha-impar" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
+			<h:dataTable id="tabela" border="1" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
 				<h:column>
 					<f:facet name="header">
 						Número
 					</f:facet>
-					#{tarefa.id}
+					<h:outputText value="#{tarefa.id}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Título
 					</f:facet>
-					#{tarefa.titulo}
+					<h:outputText value="#{tarefa.titulo}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Responsável
 					</f:facet>
-					#{tarefa.responsavel}
+					<h:outputText value="#{tarefa.responsavel}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Prioridade
 					</f:facet>
-					#{tarefa.prioridade}
+					<h:outputText value="#{tarefa.prioridade}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -91,9 +91,9 @@
 					</f:facet>
 					<h:commandButton value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
 					|
-					<h:commandButton value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" update="pesquisa" />
+					<h:commandButton value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" />
 					|
-					<h:commandButton value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" update="pesquisa" />
+					<h:commandButton value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" />
 
 				</h:column>
 			</h:dataTable>

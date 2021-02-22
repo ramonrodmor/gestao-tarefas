@@ -1,41 +1,37 @@
 package com.ramon.gestaotarefas.model;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="tarefas")
+@Table(name = "tarefas")
 public class Tarefa {
-	
+
 	// --------------- ATRIBUTOS --------------- //
-	
+
 	@SequenceGenerator(name = "tarefaGenerator", sequenceName = "TAREFA_SEQ", allocationSize = 10)
-	@Id @GeneratedValue(strategy= GenerationType.SEQUENCE, generator="tarefaGenerator")
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tarefaGenerator")
 	private Long id;
 	private String titulo;
 	private String descricao;
 	private String responsavel;
 	private String prioridade;
-	private String deadline;
+	@Temporal(TemporalType.DATE)
+	private Date deadline;
 	private String situacao;
-	
+
 	// --------------- CONSTRUTORES --------------- //
 	public Tarefa() {
-		
-	}
 
-	public Tarefa(Long id, String titulo, String descricao, String responsavel, String prioridade, String deadline, String situacao) {
-		this.id = id;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.responsavel = responsavel;
-		this.prioridade = prioridade;
-		this.deadline = deadline;
-		this.situacao = situacao;
 	}
 
 	// --------------- GETTERS E SETTERS --------------- //
@@ -79,18 +75,18 @@ public class Tarefa {
 		this.prioridade = prioridade;
 	}
 
-	public String getDeadline() {
+	public Date getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(String deadline) {
+	public void setDeadline(Date deadline) {
 		this.deadline = deadline;
 	}
 
 	public String getSituacao() {
 		return situacao;
 	}
-	
+
 	public void setSituacao(String situacao) {
 		this.situacao = situacao;
 	}

@@ -52,9 +52,7 @@
 					</f:facet>
 					<a href="#">Editar</a>
 					|
-					<h:commandLink action="#{responsavelBean.excluirResponsavel(responsavel)}">
-						Excluir
-					</h:commandLink>
+					<h:commandButton value="Excluir" action="#{responsavelBean.excluirResponsavel(responsavel)}" />
 				</h:column>
 			</h:dataTable>
 		</h:form>

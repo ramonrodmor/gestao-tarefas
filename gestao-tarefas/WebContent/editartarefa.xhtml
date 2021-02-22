@@ -18,34 +18,38 @@
 	<div align="center">
 		<h3>Editar Tarefa</h3>
 		<h:form>
-			<h:inputHidden value="#{tarefaBean.tarefaEditada.id}"/>
+			<h:inputHidden value="#{tarefaBean.tarefaEmEdicao.id}"/>
 			<h:panelGrid columns="2">
 				Título: 
-				<h:inputText value="#{tarefaBean.tarefaEditada.titulo}" />
+				<h:inputText value="#{tarefaBean.tarefaEmEdicao.titulo}" />
 				Descrição:
-				<h:inputTextarea value="#{tarefaBean.tarefaEditada.descricao}" />
+				<h:inputTextarea value="#{tarefaBean.tarefaEmEdicao.descricao}" />
 			</h:panelGrid>
 			<h:panelGrid columns="4">
 				Responsável:
 				<h:selectOneMenu id="responsavel"
-					value="#{tarefaBean.tarefaEditada.responsavel}">
+					value="#{tarefaBean.tarefaEmEdicao.responsavel}">
 					<f:selectItem></f:selectItem>
 					<f:selectItems value="#{responsavelBean.listaSelecaoResponsaveis}" />
 				</h:selectOneMenu>
 				Prioridade:
 				<h:selectOneMenu id="prioridade"
-					value="#{tarefaBean.tarefaEditada.prioridade}">
+					value="#{tarefaBean.tarefaEmEdicao.prioridade}">
 					<f:selectItem itemLabel="Baixa" itemValue="baixa" />
 					<f:selectItem itemLabel="Média" itemValue="media" />
 					<f:selectItem itemLabel="Alta" itemValue="alta" />
 				</h:selectOneMenu>
 				Deadline:
-				<h:inputText value="#{tarefaBean.tarefaEditada.deadline}" />
+				<h:inputText value="#{tarefaBean.tarefaEmEdicao.deadline}" >				
+					<f:convertDateTime pattern="dd/MM/yyyy"/>  
+				</h:inputText>
 			</h:panelGrid>
-			<h:inputHidden value="#{tarefaBean.tarefaEditada.situacao}"/>
+			<h:inputHidden value="#{tarefaBean.tarefaEmEdicao.situacao}"/>
 
 			<h:commandButton value="Salvar alterações"
-				action="#{tarefaBean.salvarTarefaEditada(tarefaBean.tarefaEditada)}" />
+				action="#{tarefaBean.salvarTarefaEditada(tarefaBean.tarefaEmEdicao)}" />
+			<h:commandButton value="Cancelar"
+				action="listatarefas.xhtml" />
 		</h:form>
 	</div>
 
