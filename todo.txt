@@ -8,9 +8,7 @@ Requisitos
 - dados da tarefa - ok
 - responsavel
 -- editar responsavel - implementar
--- revisar limpeza dos campos
 -- revisar atualização da lista
--- revisar try-catch-then
 
 - listagem deve permitir filtrar tarefas
-- listagem deve permitir realizar alterações
+- listagem deve permitir realizar alterações - incluir validações como criação de tarefa
