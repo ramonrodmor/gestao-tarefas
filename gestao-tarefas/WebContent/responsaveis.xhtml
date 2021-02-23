@@ -33,9 +33,9 @@
 	<br/>
 
 	<div align="center">
-		Responsáveis cadastrados: <br/>
 		<h:form id="tabela-resposaveis">
-			<h:dataTable class="tabela" value="#{responsavelBean.listaDeResponsaveis}"
+			<h:outputText rendered="#{empty responsavelBean.listaDeResponsaveis}" value="Não há responsáveis cadastradas." />
+			<h:dataTable class="tabela" rendered="#{not empty responsavelBean.listaDeResponsaveis}" value="#{responsavelBean.listaDeResponsaveis}"
 				var="responsavel">
 				<h:column>
 					<f:facet name="header">Número</f:facet>

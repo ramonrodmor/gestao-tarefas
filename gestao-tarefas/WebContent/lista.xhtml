@@ -19,10 +19,11 @@
 
 	<div align="center">
 		
-		<h3>Lista de Tarefas</h3>
 		<h:form id="lista">
-		<h:commandButton class="botao" align="right" value="Filtrar" action="listafiltrada.xhtml" />
-			<h:dataTable class="tabela" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
+			<h:commandButton class="botao" align="right" value="Filtrar" action="listafiltrada.xhtml" />
+			<br/><br/>
+			<h:outputText rendered="#{empty tarefaBean.listaDeTarefas}" value="Não há tarefas em andamento cadastradas." />
+			<h:dataTable class="tabela" rendered="#{not empty tarefaBean.listaDeTarefas}" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
 				<h:column>
 					<f:facet name="header">
 						Número

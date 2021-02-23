@@ -89,6 +89,10 @@ public class TarefaBean {
 
 	public String editarTarefa(Tarefa tarefa) {
 
+		// --------- LOG --------- //
+		System.out.println("ID da tarefa: " + tarefa.getId());
+		// --------- LOG --------- //
+		
 		this.tarefaEmEdicao = tarefa;
 
 		return "editartarefa";
@@ -127,8 +131,6 @@ public class TarefaBean {
 		tarefa.setSituacao("concluida");
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		
-		this.listaDeTarefas.remove(tarefa);
 
 	}
 

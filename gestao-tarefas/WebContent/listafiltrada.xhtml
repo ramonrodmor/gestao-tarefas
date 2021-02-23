@@ -59,47 +59,45 @@
 
 	<div align="center">
 		
-		<h3>Lista de Tarefas</h3>
 		<h:form id="lista">
-			<h:dataTable class="tabela" value="#{tarefaBean.listaDeTarefasFiltrada}" var="tarefa">
+			<h:dataTable class="tabela" rendered="#{not empty tarefaBean.listaDeTarefasFiltrada}" value="#{tarefaBean.listaDeTarefasFiltrada}" var="tarefaComFiltro">
 				<h:column>
 					<f:facet name="header">
 						Número
 					</f:facet>
-					<h:outputText value="#{tarefa.id}"/>
+					<h:outputText value="#{tarefaComFiltro.id}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Título
 					</f:facet>
-					<h:outputText value="#{tarefa.titulo}"/>
+					<h:outputText value="#{tarefaComFiltro.titulo}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Responsável
 					</f:facet>
-					<h:outputText value="#{tarefa.responsavel}"/>
+					<h:outputText value="#{tarefaComFiltro.responsavel}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Prioridade
 					</f:facet>
-					<h:outputText value="#{tarefa.prioridade}"/>
+					<h:outputText value="#{tarefaComFiltro.prioridade}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Situação
 					</f:facet>
-					<h:outputText value="#{tarefa.situacao}"/>
+					<h:outputText value="#{tarefaComFiltro.situacao}"/>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						Ações
 					</f:facet>
-					<h:commandButton class="botao" value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
-					<h:commandButton class="botao" value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" />
-					<h:commandButton class="botao" value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" />
-
+					<h:commandButton class="botao" value="Editar" action="#{tarefaBean.editarTarefa(tarefaComFiltro)}" />
+					<h:commandButton class="botao" value="Excluir" action="#{tarefaBean.excluirTarefa(tarefaComFiltro)}" />
+					<h:commandButton class="botao" value="Concluir" action="#{tarefaBean.concluirTarefa(tarefaComFiltro)}" />
 				</h:column>
 			</h:dataTable>
 		</h:form>
