@@ -5,7 +5,7 @@
 
 <h:head>
 	<link rel="stylesheet" href="style/style.css"/>
-	<title>Listar Tarefa</title>
+	<title>Lista de Tarefa</title>
 </h:head>
 
 <h:body>
@@ -18,7 +18,7 @@
 
 	<div align="center">
 		
-		<h3>Filtrar Tarefas</h3>
+		<h3>Filtrar</h3>
 		
 		<h:form id="filtro">
 			<h:panelGrid columns="2">
@@ -45,9 +45,9 @@
 			
 				Situação:
 				<h:selectOneMenu id="situacao" value="#{tarefaBean.filtroTarefa.situacao}">
+					<f:selectItem></f:selectItem>
 					<f:selectItem itemLabel="Em andamento" itemValue="em andamento"/>
 					<f:selectItem itemLabel="Concluídas" itemValue ="concluida"/>
-					<f:selectItem itemLabel="Todas" />
 				</h:selectOneMenu>
 
 				<h:commandButton class="botao" value="Buscar Tarefas" action="#{tarefaBean.filtrarTarefas(tarefaBean.filtroTarefa)}" oncomplete="#{tarefaBean.listaDeTarefasFiltrada}"/>
@@ -96,11 +96,9 @@
 					<f:facet name="header">
 						Ações
 					</f:facet>
-					<h:commandLink value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
-					|
-					<h:commandLink value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" />
-					|
-					<h:commandLink value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" />
+					<h:commandButton class="botao" value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
+					<h:commandButton class="botao" value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" />
+					<h:commandButton class="botao" value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" />
 
 				</h:column>
 			</h:dataTable>

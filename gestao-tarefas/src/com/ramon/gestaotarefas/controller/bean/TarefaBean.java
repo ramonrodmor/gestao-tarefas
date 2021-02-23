@@ -127,6 +127,8 @@ public class TarefaBean {
 		tarefa.setSituacao("concluida");
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		this.listaDeTarefas.remove(tarefa);
 
 	}
 
@@ -150,7 +152,7 @@ public class TarefaBean {
 		if (filtroTarefa.getPrioridade() != "") {
 			stringQuery += "a.prioridade like '%" + filtroTarefa.getPrioridade() + "%' and ";
 		}
-		if (filtroTarefa.getSituacao() == "") {
+		if (filtroTarefa.getSituacao().equals("todas") || filtroTarefa.getSituacao().equals("")) {
 			stringQuery += "a.situacao like '%'";
 		} else if (filtroTarefa.getSituacao() != "") {
 			stringQuery += "a.situacao like '%" + filtroTarefa.getSituacao() + "%'";

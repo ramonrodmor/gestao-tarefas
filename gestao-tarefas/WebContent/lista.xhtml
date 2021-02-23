@@ -57,12 +57,9 @@
 					<f:facet name="header">
 						Ações
 					</f:facet>
-					<h:commandLink value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
-					|
-					<h:commandLink value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" oncomplete="#{tarefaBean.listaDeTarefas}" />
-					|
-					<h:commandLink value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" />
-
+					<h:commandButton class="botao" value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
+					<h:commandButton class="botao" value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" />
+					<h:commandButton class="botao" value="Concluir" actionListener="#{tarefaBean.concluirTarefa(tarefa)}" />
 				</h:column>
 			</h:dataTable>
 		</h:form>

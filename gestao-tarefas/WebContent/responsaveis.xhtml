@@ -47,11 +47,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">Ações</f:facet>
-					<a href="#">Editar</a>
-					|
-					<h:commandLink action="#{responsavelBean.excluirResponsavel(responsavel)}">
-						<h:outputText value="Excluir"></h:outputText>
-					</h:commandLink>
+					<h:commandButton class="botao" value="Excluir" action="#{responsavelBean.excluirResponsavel(responsavel)}" />
 				</h:column>
 			</h:dataTable>
 		</h:form>

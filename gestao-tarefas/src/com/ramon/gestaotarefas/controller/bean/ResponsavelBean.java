@@ -81,7 +81,7 @@ public class ResponsavelBean {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		
-		this.listaDeResponsaveis.remove(responsavel);
+		responsavel = new Responsavel();
 
 		return "responsaveis";
 	}
