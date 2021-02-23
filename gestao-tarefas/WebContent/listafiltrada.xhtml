@@ -4,6 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
+	<link rel="stylesheet" href="style/style.css"/>
 	<title>Listar Tarefa</title>
 </h:head>
 
@@ -46,10 +47,10 @@
 				<h:selectOneMenu id="situacao" value="#{tarefaBean.filtroTarefa.situacao}">
 					<f:selectItem itemLabel="Em andamento" itemValue="em andamento"/>
 					<f:selectItem itemLabel="Concluídas" itemValue ="concluida"/>
-					<f:selectItem itemLabel="Todas" itemValue="." />
+					<f:selectItem itemLabel="Todas" />
 				</h:selectOneMenu>
 
-				<h:commandButton value="Buscar Tarefas" action="#{tarefaBean.filtrarTarefas(tarefaBean.filtroTarefa)}" update=""/>
+				<h:commandButton class="botao" value="Buscar Tarefas" action="#{tarefaBean.filtrarTarefas(tarefaBean.filtroTarefa)}" oncomplete="#{tarefaBean.listaDeTarefasFiltrada}"/>
 			</h:panelGrid>
 		</h:form>
 	</div>
@@ -60,7 +61,7 @@
 		
 		<h3>Lista de Tarefas</h3>
 		<h:form id="lista">
-			<h:dataTable id="tabela" border="1" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
+			<h:dataTable class="tabela" value="#{tarefaBean.listaDeTarefasFiltrada}" var="tarefa">
 				<h:column>
 					<f:facet name="header">
 						Número
@@ -87,13 +88,19 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
+						Situação
+					</f:facet>
+					<h:outputText value="#{tarefa.situacao}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
 						Ações
 					</f:facet>
-					<h:commandButton value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
+					<h:commandLink value="Editar" action="#{tarefaBean.editarTarefa(tarefa)}" />
 					|
-					<h:commandButton value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" />
+					<h:commandLink value="Exlcuir" action="#{tarefaBean.excluirTarefa(tarefa)}" />
 					|
-					<h:commandButton value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" />
+					<h:commandLink value="Concluir" action="#{tarefaBean.concluirTarefa(tarefa)}" />
 
 				</h:column>
 			</h:dataTable>

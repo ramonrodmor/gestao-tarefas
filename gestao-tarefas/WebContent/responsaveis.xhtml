@@ -5,6 +5,7 @@
 	>
 
 <h:head>
+	<link rel="stylesheet" href="style/style.css"/>
 	<title>Responsaveis</title>
 </h:head>
 
@@ -21,9 +22,11 @@
 			Novo responsável: <br/>
 			<h:panelGrid columns="3">
 				Nome: 
-				<h:inputText value="#{responsavelBean.novoResponsavel.nome}" />
-				<h:commandButton value="Cadastrar"
+				<h:inputText id="nome-responsavel" value="#{responsavelBean.novoResponsavel.nome}" required="true" requiredMessage="Digite um nome" />
+				<h:commandButton class="botao" value="Cadastrar"
 					action="#{responsavelBean.salvarResponsavel(responsavelBean.novoResponsavel)}" />
+				<br/>
+				<h:message for="nome-responsavel" style="color:red" />
 			</h:panelGrid>	
 	</h:form>
 	</div>	
@@ -31,33 +34,28 @@
 
 	<div align="center">
 		Responsáveis cadastrados: <br/>
-		<h:form>
-			<h:dataTable border="1" rowClasses="table-linha-par,table-linha-impar" value="#{responsavelBean.listaDeResponsaveis}"
+		<h:form id="tabela-resposaveis">
+			<h:dataTable class="tabela" value="#{responsavelBean.listaDeResponsaveis}"
 				var="responsavel">
 				<h:column>
-					<f:facet name="header">
-						Número
-					</f:facet>
+					<f:facet name="header">Número</f:facet>
 					#{responsavel.id}
 				</h:column>
 				<h:column>
-					<f:facet name="header">
-						Nome
-					</f:facet>
+					<f:facet name="header">Nome</f:facet>
 					#{responsavel.nome}
 				</h:column>
 				<h:column>
-					<f:facet name="header">
-						Ações
-					</f:facet>
+					<f:facet name="header">Ações</f:facet>
 					<a href="#">Editar</a>
 					|
-					<h:commandButton value="Excluir" action="#{responsavelBean.excluirResponsavel(responsavel)}" />
+					<h:commandLink action="#{responsavelBean.excluirResponsavel(responsavel)}">
+						<h:outputText value="Excluir"></h:outputText>
+					</h:commandLink>
 				</h:column>
 			</h:dataTable>
 		</h:form>
 	</div>
-	
 </h:body>
 
 </html>

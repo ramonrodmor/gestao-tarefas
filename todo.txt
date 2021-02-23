@@ -1,14 +1,8 @@
 Requisitos
 - funcionaliades
--- criar tarefa - ok
--- atualizar tarefa - ok
--- remover tarefa - ok
--- listar tarefas - rever conforme áudio
+-- corrigir falha de atualização da datatable de acordo com a lista
 
-- dados da tarefa - ok
-- responsavel
--- editar responsavel - implementar
+- dados da tarefa
 -- revisar atualização da lista
 
 - listagem deve permitir filtrar tarefas
-- listagem deve permitir realizar alterações - incluir validações como criação de tarefa

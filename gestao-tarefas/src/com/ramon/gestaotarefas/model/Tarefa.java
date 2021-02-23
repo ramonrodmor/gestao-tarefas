@@ -33,6 +33,16 @@ public class Tarefa {
 	public Tarefa() {
 
 	}
+	
+	public Tarefa(Long id, String titulo, String descricao, String responsavel, String prioridade, String situacao) {
+
+		setId(id);
+		setTitulo(titulo);
+		setDescricao(descricao);
+		setResponsavel(responsavel);
+		setPrioridade(prioridade);
+		setSituacao(situacao);
+	}
 
 	// --------------- GETTERS E SETTERS --------------- //
 	public Long getId() {

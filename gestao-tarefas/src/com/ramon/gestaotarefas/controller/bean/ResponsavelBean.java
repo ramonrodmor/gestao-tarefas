@@ -80,6 +80,8 @@ public class ResponsavelBean {
 		entityManager.remove(responsavel);
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		this.listaDeResponsaveis.remove(responsavel);
 
 		return "responsaveis";
 	}

@@ -1,0 +1,56 @@
+* {
+	/* reset padrão de margens e paddings para todo o documento */
+    margin: 1px;
+    padding: 0;
+    /* define que a caixa não deve ultrapassar o tamanho especificado */
+    box-sizing: border-box;
+    
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 14;
+}
+
+body {
+    background-color: rgb(243, 243, 243);
+    justify-content: center;
+}
+
+.tabela, .tabela tr, .tabela td, .tabela th{
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 5px;
+}
+
+.cabecalho {
+	margin: 10px 0px;
+}
+
+.menu-navegacao {
+    /* alinhamento em tela */
+    display: flex;
+    /* 
+    por padrão o display do tipo flex coloca tudo em linha 
+    flex-direction: row; 
+    */
+    /* como o display é em linha, align-itens alinha na vertical */
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-navegacao a, a {
+    /* remove a decoração (linha, neste caso) do texto */
+    text-decoration: none;
+    color: #363636;
+    margin: 10px 20px;
+}
+
+.menu-navegacao a:hover , a:hover{
+    color: #000000;
+    font-weight: bolder
+}
+
+.botao {
+	padding: 2px;
+	font-size: 16px;
+    font-family: sans-serif;
+}

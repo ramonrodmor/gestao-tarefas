@@ -5,6 +5,7 @@
 	>
 
 <h:head>
+	<link rel="stylesheet" href="style/style.css"/>
 	<title>Cadastrar Tarefa</title>
 </h:head>
 
@@ -18,23 +19,27 @@
 
 	<div  align="center">
 		<h:form>
-			<h:panelGrid columns="3">
+			<h:panelGrid columns="2">
 				Título: 
 				<h:inputText id="tarefa-titulo" value="#{tarefaBean.novaTarefa.titulo}" required="true" requiredMessage="Digite um título"/>
+				<h:message for=""></h:message>
 				<h:message for="tarefa-titulo" style="color:red" />
 				Descrição:
 				<h:inputTextarea id="tarefa-descricao" value="#{tarefaBean.novaTarefa.descricao}" required="true" requiredMessage="Digite uma descrição"/>
+				<h:message for=""></h:message>
 				<h:message for="tarefa-descricao" style="color:red" />
 				Deadline:
 				<h:inputText id="tarefa-deadline" value="#{tarefaBean.novaTarefa.deadline}" required="true" converterMessage="Digite uma data no formato dd/mm/yyyy" requiredMessage="Digite uma data no formato dd/mm/yyyy">
 					<f:convertDateTime pattern="dd/MM/yyyy" />
 				</h:inputText>
+				<h:message for=""></h:message>
 				<h:message for="tarefa-deadline" style="color:red" />
 				Responsável:
 				<h:selectOneMenu id="tarefa-responsavel" value="#{tarefaBean.novaTarefa.responsavel}" required="true" requiredMessage="Selecione um responsável">
 					<f:selectItem></f:selectItem>
 					<f:selectItems value="#{responsavelBean.listaSelecaoResponsaveis}"/>
 				</h:selectOneMenu>
+				<h:message for=""></h:message>
 				<h:message for="tarefa-responsavel" style="color:red" />
 				Prioridade:
 				<h:selectOneMenu id="prioridade" value="#{tarefaBean.novaTarefa.prioridade}">
@@ -44,7 +49,7 @@
 				</h:selectOneMenu>
 			</h:panelGrid>
 	
-			<h:commandButton value="Cadastrar"
+			<h:commandButton class="botao" value="Cadastrar"
 				action="#{tarefaBean.salvarTarefa(tarefaBean.novaTarefa)}" />
 	</h:form>
 	</div>

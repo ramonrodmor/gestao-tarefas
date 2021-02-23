@@ -4,6 +4,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
+	<link rel="stylesheet" href="style/style.css"/>
 	<title>Editar Tarefa</title>
 </h:head>
 
@@ -21,35 +22,39 @@
 			<h:inputHidden value="#{tarefaBean.tarefaEmEdicao.id}"/>
 			<h:panelGrid columns="2">
 				Título: 
-				<h:inputText value="#{tarefaBean.tarefaEmEdicao.titulo}" />
+				<h:inputText id="tarefa-titulo" value="#{tarefaBean.tarefaEmEdicao.titulo}" required="true" requiredMessage="Digite um título"/>
+				<h:message for=""></h:message>
+				<h:message for="tarefa-titulo" style="color:red" />
 				Descrição:
-				<h:inputTextarea value="#{tarefaBean.tarefaEmEdicao.descricao}" />
-			</h:panelGrid>
-			<h:panelGrid columns="4">
+				<h:inputTextarea id="tarefa-descricao" value="#{tarefaBean.tarefaEmEdicao.descricao}" required="true" requiredMessage="Digite uma descrição"/>
+				<h:message for=""></h:message>
+				<h:message for="tarefa-descricao" style="color:red" />
+				Deadline:
+				<h:inputText id="tarefa-deadline" value="#{tarefaBean.tarefaEmEdicao.deadline}" required="true" converterMessage="Digite uma data no formato dd/mm/yyyy" requiredMessage="Digite uma data no formato dd/mm/yyyy">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:inputText>
+				<h:message for=""></h:message>
+				<h:message for="tarefa-deadline" style="color:red" />
 				Responsável:
-				<h:selectOneMenu id="responsavel"
-					value="#{tarefaBean.tarefaEmEdicao.responsavel}">
+				<h:selectOneMenu id="tarefa-responsavel" value="#{tarefaBean.tarefaEmEdicao.responsavel}" required="true" requiredMessage="Selecione um responsável">
 					<f:selectItem></f:selectItem>
-					<f:selectItems value="#{responsavelBean.listaSelecaoResponsaveis}" />
+					<f:selectItems value="#{responsavelBean.listaSelecaoResponsaveis}"/>
 				</h:selectOneMenu>
+				<h:message for=""></h:message>
+				<h:message for="tarefa-responsavel" style="color:red" />
 				Prioridade:
-				<h:selectOneMenu id="prioridade"
-					value="#{tarefaBean.tarefaEmEdicao.prioridade}">
+				<h:selectOneMenu id="prioridade" value="#{tarefaBean.tarefaEmEdicao.prioridade}">
 					<f:selectItem itemLabel="Baixa" itemValue="baixa" />
 					<f:selectItem itemLabel="Média" itemValue="media" />
 					<f:selectItem itemLabel="Alta" itemValue="alta" />
 				</h:selectOneMenu>
-				Deadline:
-				<h:inputText value="#{tarefaBean.tarefaEmEdicao.deadline}" >				
-					<f:convertDateTime pattern="dd/MM/yyyy"/>  
-				</h:inputText>
 			</h:panelGrid>
 			<h:inputHidden value="#{tarefaBean.tarefaEmEdicao.situacao}"/>
 
 			<h:commandButton value="Salvar alterações"
 				action="#{tarefaBean.salvarTarefaEditada(tarefaBean.tarefaEmEdicao)}" />
 			<h:commandButton value="Cancelar"
-				action="listatarefas.xhtml" />
+				action="lista.xhtml" />
 		</h:form>
 	</div>
 

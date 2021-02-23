@@ -5,7 +5,6 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 import com.ramon.gestaotarefas.controller.JPAUtil;
@@ -23,9 +22,9 @@ public class TarefaBean {
 
 	private Tarefa tarefaEmEdicao = new Tarefa();
 
-	private boolean filtrado;
-
 	private List<Tarefa> listaDeTarefas;
+
+	private List<Tarefa> listaDeTarefasFiltrada;
 
 	// --------------- GETTERS --------------- //
 
@@ -44,29 +43,34 @@ public class TarefaBean {
 	public List<Tarefa> getListaDeTarefas() {
 
 		if (this.listaDeTarefas == null) {
-
 			EntityManager entityManager = JPAUtil.getEntityManager();
-			this.listaDeTarefas = null;
-			
-			if (filtrado) {
-				Query query = entityManager.createQuery(montarQueryFiltro(this.filtroTarefa), Tarefa.class);
-				this.listaDeTarefas = query.getResultList();
-			} else {
-				Query query = entityManager.createQuery("select a from Tarefa a where a.situacao='em andamento'",
-						Tarefa.class);
-				this.listaDeTarefas = query.getResultList();
-			}
+			Query query = entityManager.createQuery("select a from Tarefa a where a.situacao='em andamento'",
+					Tarefa.class);
+			this.listaDeTarefas = query.getResultList();
 			entityManager.close();
 		}
 
 		return this.listaDeTarefas;
 	}
 
+	public List<Tarefa> getListaDeTarefasFiltrada() {
+
+		return this.listaDeTarefasFiltrada;
+	}
+
 	// --------------- MÉTODOS --------------- //
 
 	public void filtrarTarefas(Tarefa filtro) {
+
 		this.filtroTarefa = filtro;
-		filtrado = true;
+		this.listaDeTarefasFiltrada = getListaDeTarefasFiltrada();
+		if (this.listaDeTarefasFiltrada == null) {
+			
+			EntityManager entityManager = JPAUtil.getEntityManager();
+			Query query = entityManager.createQuery(montarQueryFiltro(this.filtroTarefa), Tarefa.class);
+			this.listaDeTarefasFiltrada = query.getResultList();
+			entityManager.close();
+		}
 	}
 
 	public String salvarTarefa(Tarefa tarefa) {
@@ -80,14 +84,11 @@ public class TarefaBean {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
-		return "listatarefas";
+		return "lista";
 	}
 
 	public String editarTarefa(Tarefa tarefa) {
 
-		// -------- LOG -------- //
-		System.out.println("ID da tarefa: " + tarefa.getId());
-		// -------- LOG -------- //
 		this.tarefaEmEdicao = tarefa;
 
 		return "editartarefa";
@@ -102,7 +103,7 @@ public class TarefaBean {
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
-		return "listatarefas";
+		return "lista";
 	}
 
 	public void excluirTarefa(Tarefa tarefa) {
@@ -133,8 +134,9 @@ public class TarefaBean {
 
 		String stringQuery = "";
 		stringQuery = "select a from Tarefa a where ";
+
 		if (filtroTarefa.getId() == 0) {
-			//filtroTarefa.setId(null);
+			filtroTarefa.setId(null);
 		} else {
 			stringQuery += "a.id = " + filtroTarefa.getId() + " and ";
 		}
@@ -148,7 +150,7 @@ public class TarefaBean {
 		if (filtroTarefa.getPrioridade() != "") {
 			stringQuery += "a.prioridade like '%" + filtroTarefa.getPrioridade() + "%' and ";
 		}
-		if (filtroTarefa.getSituacao().equals(".")) {
+		if (filtroTarefa.getSituacao() == "") {
 			stringQuery += "a.situacao like '%'";
 		} else if (filtroTarefa.getSituacao() != "") {
 			stringQuery += "a.situacao like '%" + filtroTarefa.getSituacao() + "%'";
