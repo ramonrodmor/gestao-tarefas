@@ -1,8 +1,0 @@
-Requisitos
-- funcionaliades
--- corrigir falha de atualização da datatable de acordo com a lista
-
-- dados da tarefa
--- revisar atualização da lista
-
-- listagem deve permitir filtrar tarefas
