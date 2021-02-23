@@ -43,17 +43,21 @@
 				<h:message for=""></h:message>
 				<h:message for="tarefa-responsavel" style="color:red" />
 				Prioridade:
-				<h:selectOneMenu id="prioridade" value="#{tarefaBean.tarefaEmEdicao.prioridade}">
+				<h:selectOneMenu id="tarefa-prioridade" value="#{tarefaBean.tarefaEmEdicao.prioridade}">
 					<f:selectItem itemLabel="Baixa" itemValue="baixa" />
 					<f:selectItem itemLabel="Média" itemValue="media" />
 					<f:selectItem itemLabel="Alta" itemValue="alta" />
 				</h:selectOneMenu>
+				Situação:
+				<h:selectOneMenu id="tarefa-situacao" value="#{tarefaBean.tarefaEmEdicao.situacao}">
+					<f:selectItem itemLabel="Em andamento" itemValue="em andamento" />
+					<f:selectItem itemLabel="Concluída" itemValue="concluida" />
+				</h:selectOneMenu>
 			</h:panelGrid>
-			<h:inputHidden value="#{tarefaBean.tarefaEmEdicao.situacao}"/>
 
-			<h:commandButton value="Salvar alterações"
+			<h:commandButton class="botao" value="Salvar alterações"
 				action="#{tarefaBean.salvarTarefaEditada(tarefaBean.tarefaEmEdicao)}" />
-			<h:commandButton value="Cancelar"
+			<h:commandButton class="botao" value="Cancelar"
 				action="lista.xhtml" />
 		</h:form>
 	</div>

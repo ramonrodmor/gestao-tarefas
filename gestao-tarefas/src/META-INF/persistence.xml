@@ -23,8 +23,8 @@
 				value="org.hibernate.dialect.PostgreSQLDialect" /> <!-- DB Dialeto -->
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 
-			<property name="hibernate.show_sql" value="true" /> <!-- log sql no console -->
-			<property name="hibernate.format_sql" value="true" /> <!-- log sql no console -->
+<!-- 			<property name="hibernate.show_sql" value="true" /> log sql no console -->
+<!-- 			<property name="hibernate.format_sql" value="true" /> log sql no console -->
 		</properties>
 	</persistence-unit>
 

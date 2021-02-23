@@ -55,6 +55,14 @@ public class TarefaBean {
 
 	public List<Tarefa> getListaDeTarefasFiltrada() {
 
+		if (this.listaDeTarefasFiltrada == null) {
+
+			EntityManager entityManager = JPAUtil.getEntityManager();
+			Query query = entityManager.createQuery(montarQueryFiltro(this.filtroTarefa), Tarefa.class);
+			this.listaDeTarefasFiltrada = query.getResultList();
+			entityManager.close();
+		}
+
 		return this.listaDeTarefasFiltrada;
 	}
 
@@ -64,13 +72,6 @@ public class TarefaBean {
 
 		this.filtroTarefa = filtro;
 		this.listaDeTarefasFiltrada = getListaDeTarefasFiltrada();
-		if (this.listaDeTarefasFiltrada == null) {
-			
-			EntityManager entityManager = JPAUtil.getEntityManager();
-			Query query = entityManager.createQuery(montarQueryFiltro(this.filtroTarefa), Tarefa.class);
-			this.listaDeTarefasFiltrada = query.getResultList();
-			entityManager.close();
-		}
 	}
 
 	public String salvarTarefa(Tarefa tarefa) {
@@ -89,10 +90,6 @@ public class TarefaBean {
 
 	public String editarTarefa(Tarefa tarefa) {
 
-		// --------- LOG --------- //
-		System.out.println("ID da tarefa: " + tarefa.getId());
-		// --------- LOG --------- //
-		
 		this.tarefaEmEdicao = tarefa;
 
 		return "editartarefa";
@@ -139,27 +136,30 @@ public class TarefaBean {
 		String stringQuery = "";
 		stringQuery = "select a from Tarefa a where ";
 
-		if (filtroTarefa.getId() == 0) {
-			filtroTarefa.setId(null);
+		if (filtroTarefa.getTitulo() == null) {
+			stringQuery = "select a from Tarefa a";
 		} else {
-			stringQuery += "a.id = " + filtroTarefa.getId() + " and ";
+			if (filtroTarefa.getId() == 0) {
+				filtroTarefa.setId(null);
+			} else {
+				stringQuery += "a.id = " + filtroTarefa.getId() + " and ";
+			}
+			if (filtroTarefa.getTitulo() != null) {
+				stringQuery += "(a.titulo like '%" + filtroTarefa.getTitulo() + "%' or a.descricao like '%"
+						+ filtroTarefa.getTitulo() + "%') and ";
+			}
+			if (filtroTarefa.getResponsavel() != null) {
+				stringQuery += "a.responsavel like '%" + filtroTarefa.getResponsavel() + "%' and ";
+			}
+			if (filtroTarefa.getPrioridade() != null) {
+				stringQuery += "a.prioridade like '%" + filtroTarefa.getPrioridade() + "%' and ";
+			}
+			if (filtroTarefa.getSituacao().equals("todas") || filtroTarefa.getSituacao().equals("")) {
+				stringQuery += "a.situacao like '%'";
+			} else if (filtroTarefa.getSituacao() != "") {
+				stringQuery += "a.situacao like '%" + filtroTarefa.getSituacao() + "%'";
+			}
 		}
-		if (filtroTarefa.getTitulo() != "") {
-			stringQuery += "(a.titulo like '%" + filtroTarefa.getTitulo() + "%' or a.descricao like '%"
-					+ filtroTarefa.getTitulo() + "%') and ";
-		}
-		if (filtroTarefa.getResponsavel() != "") {
-			stringQuery += "a.responsavel like '%" + filtroTarefa.getResponsavel() + "%' and ";
-		}
-		if (filtroTarefa.getPrioridade() != "") {
-			stringQuery += "a.prioridade like '%" + filtroTarefa.getPrioridade() + "%' and ";
-		}
-		if (filtroTarefa.getSituacao().equals("todas") || filtroTarefa.getSituacao().equals("")) {
-			stringQuery += "a.situacao like '%'";
-		} else if (filtroTarefa.getSituacao() != "") {
-			stringQuery += "a.situacao like '%" + filtroTarefa.getSituacao() + "%'";
-		}
-
 		return stringQuery;
 	}
 
