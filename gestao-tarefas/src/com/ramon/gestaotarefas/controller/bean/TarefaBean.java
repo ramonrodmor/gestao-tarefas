@@ -119,7 +119,7 @@ public class TarefaBean {
 
 	}
 
-	public void concluirTarefa(Tarefa tarefa) {
+	public String concluirTarefa(Tarefa tarefa) {
 
 		EntityManager entityManager = JPAUtil.getEntityManager();
 
@@ -128,6 +128,10 @@ public class TarefaBean {
 		tarefa.setSituacao("concluida");
 		entityManager.getTransaction().commit();
 		entityManager.close();
+		
+		this.listaDeTarefas = getListaDeTarefas();
+		
+		return "";
 
 	}
 
@@ -137,7 +141,7 @@ public class TarefaBean {
 		stringQuery = "select a from Tarefa a where ";
 
 		if (filtroTarefa.getTitulo() == null) {
-			stringQuery = "select a from Tarefa a";
+			stringQuery = "select a from Tarefa a order by a.id";
 		} else {
 			if (filtroTarefa.getId() == 0) {
 				filtroTarefa.setId(null);
@@ -161,6 +165,12 @@ public class TarefaBean {
 			}
 		}
 		return stringQuery;
+	}
+	
+	public String renderizarBotao(String situacao) {
+		
+		if (situacao.equals("em andamento")) return "true";
+		else return "false";
 	}
 
 }

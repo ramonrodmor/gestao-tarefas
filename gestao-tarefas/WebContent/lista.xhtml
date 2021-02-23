@@ -17,13 +17,13 @@
 	</div>
 
 
-	<div align="center">
+	<div id="div-lista" align="center">
 		
-		<h:form id="lista">
+		<h:form id="form-lista">
 			<h:commandButton class="botao" align="right" value="Filtrar" action="listafiltrada.xhtml" />
 			<br/><br/>
 			<h:outputText rendered="#{empty tarefaBean.listaDeTarefas}" value="Não há tarefas em andamento cadastradas." />
-			<h:dataTable class="tabela" rendered="#{not empty tarefaBean.listaDeTarefas}" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
+			<h:dataTable id="table-lista" class="tabela" rendered="#{not empty tarefaBean.listaDeTarefas}" value="#{tarefaBean.listaDeTarefas}" var="tarefa">
 				<h:column>
 					<f:facet name="header">
 						Número
@@ -53,6 +53,14 @@
 						Prioridade
 					</f:facet>
 					<h:outputText value="#{tarefa.prioridade}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						Deadline
+					</f:facet>
+					<h:outputText value="#{tarefa.deadline}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">

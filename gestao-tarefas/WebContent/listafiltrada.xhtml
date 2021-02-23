@@ -97,7 +97,8 @@
 					</f:facet>
 					<h:commandButton class="botao" value="Editar" action="#{tarefaBean.editarTarefa(tarefaComFiltro)}" />
 					<h:commandButton class="botao" value="Excluir" action="#{tarefaBean.excluirTarefa(tarefaComFiltro)}" />
-					<h:commandButton class="botao" value="Concluir" action="#{tarefaBean.concluirTarefa(tarefaComFiltro)}" />
+					<h:commandButton class="botao" value="Concluir" rendered="#{tarefaBean.renderizarBotao(tarefaComFiltro.situacao)}" 
+						action="#{tarefaBean.concluirTarefa(tarefaComFiltro)}"/>
 				</h:column>
 			</h:dataTable>
 		</h:form>
